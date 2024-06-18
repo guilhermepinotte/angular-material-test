@@ -1,0 +1,11 @@
+<mat-form-field class="input-container" appearance="outline">
+  <mat-label>{{ label }}</mat-label>
+  <mat-icon matPrefix>{{ iconPrefix }}</mat-icon>
+  <input matInput [placeholder]="placeholder" [matAutocomplete]="auto" />
+  <mat-icon matSuffix>search</mat-icon>
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    @for (uf of unidadesFederativas; track uf) {
+    <mat-option [value]="uf.nome">{{ uf.nome }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
