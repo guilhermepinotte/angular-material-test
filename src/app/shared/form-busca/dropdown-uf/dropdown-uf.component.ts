@@ -15,36 +15,35 @@ export class DropdownUfComponent implements OnInit {
   @Input() placeholder!: string;
   @Input() control!: FormControl;
 
-  unidadesFederativas: UnidadeFederativa[] = [];
+  listaUfs: UnidadeFederativa[] = [];
 
   filteredOptions$?: Observable<UnidadeFederativa[]>;
 
   constructor(private servico: UnidadeFederativaService) {}
 
   ngOnInit(): void {
-    this.servico.listar().subscribe((uf) => {
-      this.unidadesFederativas = uf;
-      console.log(this.unidadesFederativas);
+    this.servico.listar().subscribe((dados) => {
+      this.listaUfs = dados;
+      // console.log(this.listaUfs);
     });
-    console.log(this.control);
+    // console.log(this.control);
 
     this.filteredOptions$ = this.control.valueChanges.pipe(
       startWith(''),
-      map((value) => {
-        const name = typeof value === 'string' ? value : value?.name;
-        return name
-          ? this._filter(name as string)
-          : this.unidadesFederativas.slice();
-      })
+      map((value) => this._filter(value))
     );
   }
 
   private _filter(value: string): UnidadeFederativa[] {
-    const filterValue = value.toLowerCase();
-    console.log(filterValue);
+    const filterValue = value?.toLowerCase();
+    // console.log(filterValue);
 
-    return this.unidadesFederativas.filter((ufs) =>
+    return this.listaUfs.filter((ufs) =>
       ufs.nome.toLowerCase().includes(filterValue)
     );
+  }
+
+  displayFn(uf: UnidadeFederativa): string {
+    return uf && uf.nome ? uf.nome : '';
   }
 }

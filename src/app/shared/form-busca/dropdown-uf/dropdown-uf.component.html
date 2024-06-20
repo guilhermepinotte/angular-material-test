@@ -3,8 +3,8 @@
   <mat-icon matPrefix>{{ iconPrefix }}</mat-icon>
   <input matInput [placeholder]="placeholder" [matAutocomplete]="auto" />
   <mat-icon matSuffix>search</mat-icon>
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-    @for (uf of unidadesFederativas; track uf) {
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+    @for (uf of filteredOptions$ | async; track uf) {
     <mat-option [value]="uf.nome">{{ uf.nome }}</mat-option>
     }
   </mat-autocomplete>
