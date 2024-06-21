@@ -1,0 +1,69 @@
+<app-banner
+  src="../../../assets/imagens/banner-login.png"
+  alt="Banner de login"
+></app-banner>
+<section class="login-component">
+  <mat-card class="login">
+    <div class="image-container">
+      <figure>
+        <img
+          src="../../../assets/imagens/simbolo-bussola.png"
+          alt="Símbolo de uma bússula laranja"
+        />
+      </figure>
+    </div>
+    <div class="form-container">
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="loginForm">
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              placeholder="Digite seu email"
+              formControlName="email"
+            />
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
+              >Email obrigatório</mat-error
+            >
+            <mat-error *ngIf="loginForm.get('email')?.errors?.['email']"
+              >Email inválido</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Senha</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Digite sua senha"
+              formControlName="senha"
+            />
+            <mat-error *ngIf="loginForm.get('senha')?.hasError('required')"
+              >Senha obrigatória</mat-error
+            >
+            <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']"
+              >Senha deve ter no mínimo 6 caracteres</mat-error
+            >
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            (click)="login()"
+            mat-flat-button
+            color="primary"
+            [disabled]="loginForm.invalid"
+          >
+            ACESSAR MINHA CONTA
+          </button>
+        </mat-card-actions>
+        <p>
+          Ainda não possui conta?
+          <a><strong>Clique aqui para se cadastrar</strong></a>
+        </p>
+      </form>
+    </div>
+  </mat-card>
+</section>
