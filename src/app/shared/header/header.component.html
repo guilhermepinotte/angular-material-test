@@ -5,9 +5,19 @@
       alt="Logo da aplicação Jornada"
     />
     <span class="spacer"></span>
-    <button mat-button>Vender milhas</button>
-    <button mat-button>Sobre</button>
-    <button mat-raised-button color="primary">CADASTRE-SE</button>
-    <button mat-stroked-button routerLink="login">LOGIN</button>
+    <div class="links-toolbar">
+      <button mat-button>Vender milhas</button>
+      <button mat-button>Sobre</button>
+      <ng-container *ngIf="user$ | async as user, else login">
+        <a routerLink="/perfil">
+          <img src="../../../assets/icones/" alt="">
+        </a>
+        <button mat-stroked-button (click)="logout()">SAIR</button>
+      </ng-container>
+      <ng-template #login>
+        <button routerLink="cadastro" mat-raised-button color="primary">CADASTRE-SE</button>
+        <button routerLink="login" mat-stroked-button>LOGIN</button>
+      </ng-template>
+    </div>
   </mat-toolbar>
 </header>
