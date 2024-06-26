@@ -1,11 +1,15 @@
 <mat-form-field class="input-container" appearance="outline">
   <mat-label>{{ label }}</mat-label>
-  <mat-icon matPrefix>{{ iconPrefix }}</mat-icon>
+  <mat-icon matPrefix *ngIf="iconPrefix">{{ iconPrefix }}</mat-icon>
   <input matInput [placeholder]="placeholder" [matAutocomplete]="auto" />
   <mat-icon matSuffix>search</mat-icon>
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+  <mat-autocomplete
+    autoActiveFirstOption
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+  >
     @for (uf of filteredOptions$ | async; track uf) {
-    <mat-option [value]="uf.nome">{{ uf.nome }}</mat-option>
+    <mat-option [value]="uf">{{ uf.nome }}</mat-option>
     }
   </mat-autocomplete>
 </mat-form-field>

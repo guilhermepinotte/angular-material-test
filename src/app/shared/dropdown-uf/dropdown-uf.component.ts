@@ -1,6 +1,6 @@
-import { UnidadeFederativa } from './../../../core/types/type';
+import { UnidadeFederativa } from '../../core/types/type';
 import { Component, Input, OnInit } from '@angular/core';
-import { UnidadeFederativaService } from '../../../core/services/unidade-federativa.service';
+import { UnidadeFederativaService } from '../../core/services/unidade-federativa.service';
 import { Observable, map, startWith } from 'rxjs';
 import { FormControl } from '@angular/forms';
 
@@ -26,7 +26,6 @@ export class DropdownUfComponent implements OnInit {
       this.listaUfs = dados;
       // console.log(this.listaUfs);
     });
-    // console.log(this.control);
 
     this.filteredOptions$ = this.control.valueChanges.pipe(
       startWith(''),
@@ -34,9 +33,10 @@ export class DropdownUfComponent implements OnInit {
     );
   }
 
-  private _filter(value: string): UnidadeFederativa[] {
-    const filterValue = value?.toLowerCase();
-    // console.log(filterValue);
+  private _filter(value: string | UnidadeFederativa): UnidadeFederativa[] {
+    const nomeUf = typeof value === 'string' ? value : value.nome;
+
+    const filterValue = nomeUf?.toLowerCase();
 
     return this.listaUfs.filter((ufs) =>
       ufs.nome.toLowerCase().includes(filterValue)
